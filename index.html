@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Misiones de Ajedrez</title>
-    <!-- Usar Brython local -->
+    <!-- Cargar Brython y _random.js -->
     <script type="text/javascript" src="brython.min.js"></script>
-    <script type="text/javascript" src="random.js"></script>
+    <script type="text/javascript" src="_random.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,7 +50,10 @@
 
     <script type="text/python">
     from browser import document
-    import random
+    from _random import Random  # Importar desde _random.js
+
+    # Crear una instancia del generador de números aleatorios
+    rng = Random()
 
     # Lista de misiones
     misiones = [
@@ -65,16 +68,17 @@
         {"actividad": "Jugar una partida en Lichess contra el bot de nivel superior al tuyo.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
     ]
 
-    # Función para generar una nueva misión
+    # Función para seleccionar una misión aleatoria
     def nueva_mision(event):
-        mision = random.choice(misiones)
+        # Seleccionar una misión aleatoria
+        mision = misiones[int(rng.random() * len(misiones))]
         texto = f"<strong>Actividad:</strong> {mision['actividad']}<br>" \
                 f"<strong>Tiempo estimado:</strong> {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>" \
                 f"<strong>Puntos:</strong> {mision['puntos']}"
-        # Actualiza el contenido del div con la misión generada
+        # Actualizar el contenido del div con la misión generada
         document["mision"].innerHTML = texto
 
-    # Vincula el botón "Nueva Misión" con la función nueva_mision
+    # Vincular el botón "Nueva Misión" con la función nueva_mision
     document["nueva-mision"].bind("click", nueva_mision)
     </script>
 </body>
