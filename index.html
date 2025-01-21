@@ -7,19 +7,42 @@
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
     <style>
+        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            background-color: #333;
+            color: white;
+            padding: 15px;
         }
         #mision {
-            margin-top: 20px;
+            margin: 20px auto;
             font-size: 18px;
+            line-height: 1.6;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
+            margin: 20px;
             cursor: pointer;
+            border: none;
+            background-color: #0078d4;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #005bb5;
         }
     </style>
 </head>
@@ -44,12 +67,14 @@
         {"actividad": "Jugar una partida en Lichess contra el bot de nivel superior al tuyo.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
     ]
 
-    # Función para seleccionar una nueva misión aleatoria
+    # Función para generar una nueva misión aleatoria
     def nueva_mision():
         mision = random.choice(misiones)
-        return f"Actividad: {mision['actividad']}<br>Tiempo estimado: {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>Puntos: {mision['puntos']}"
+        return f"<strong>Actividad:</strong> {mision['actividad']}<br>" \
+               f"<strong>Tiempo estimado:</strong> {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>" \
+               f"<strong>Puntos:</strong> {mision['puntos']}"
 
-    # Función para actualizar la misión en la página
+    # Función para mostrar la misión en la página
     def mostrar_mision(*args):
         mission_text = nueva_mision()
         Element("mision").element.innerHTML = mission_text
