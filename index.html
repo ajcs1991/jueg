@@ -6,7 +6,6 @@
     <title>Juego de Misiones de Ajedrez</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.10.5/brython.min.js"></script>
     <style>
-        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -51,10 +50,10 @@
     <button id="nueva-mision">Nueva Misión</button>
 
     <script type="text/python">
+    from browser import document
     import random
-    from browser import document, html
 
-    # Lista de misiones completas
+    # Lista de misiones
     misiones = [
         {"actividad": "Jugar una partida a 3 minutos en Lichess y analizarla.", "tiempo_min": 6, "tiempo_max": 10, "puntos": 3},
         {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Fácil.", "tiempo_min": 1, "tiempo_max": 3, "puntos": 1},
@@ -67,16 +66,18 @@
         {"actividad": "Jugar una partida en Lichess contra el bot de nivel superior al tuyo.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
     ]
 
-    # Función para generar una nueva misión aleatoria
-    def nueva_mision(ev):
+    # Función para generar una nueva misión
+    def nueva_mision(event):
         mision = random.choice(misiones)
         texto = f"<strong>Actividad:</strong> {mision['actividad']}<br>" \
                 f"<strong>Tiempo estimado:</strong> {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>" \
                 f"<strong>Puntos:</strong> {mision['puntos']}"
-        document["mision"].html = texto
+        # Actualizar el contenido del div con id "mision"
+        document["mision"].innerHTML = texto
 
-    # Conectar el botón con la función
+    # Vincular el botón con la función nueva_mision
     document["nueva-mision"].bind("click", nueva_mision)
     </script>
 </body>
 </html>
+
