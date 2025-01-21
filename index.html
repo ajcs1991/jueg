@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Misiones de Ajedrez</title>
+    <title>Prueba de Brython</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.10.5/brython.min.js"></script>
     <style>
         body {
@@ -13,31 +13,23 @@
             padding: 0;
             background-color: #f4f4f4;
         }
-        h1 {
-            background-color: #333;
-            color: white;
-            padding: 15px;
-        }
         #mision {
             margin: 20px auto;
-            font-size: 18px;
-            line-height: 1.6;
             padding: 15px;
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
+            font-size: 18px;
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
-            margin: 20px;
-            cursor: pointer;
-            border: none;
             background-color: #0078d4;
             color: white;
+            border: none;
             border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
         button:hover {
             background-color: #005bb5;
@@ -45,39 +37,19 @@
     </style>
 </head>
 <body onload="brython()">
-    <h1>Juego de Misiones de Ajedrez</h1>
+    <h1>Prueba de Brython</h1>
     <div id="mision">Haz clic en "Nueva Misión" para comenzar.</div>
     <button id="nueva-mision">Nueva Misión</button>
 
     <script type="text/python">
     from browser import document
-    import random
 
-    # Lista de misiones
-    misiones = [
-        {"actividad": "Jugar una partida a 3 minutos en Lichess y analizarla.", "tiempo_min": 6, "tiempo_max": 10, "puntos": 3},
-        {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Fácil.", "tiempo_min": 1, "tiempo_max": 3, "puntos": 1},
-        {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Medio.", "tiempo_min": 2, "tiempo_max": 3, "puntos": 1},
-        {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Difícil.", "tiempo_min": 2, "tiempo_max": 5, "puntos": 2},
-        {"actividad": "Estudiar finales en Chessable.", "tiempo_min": 10, "tiempo_max": 10, "puntos": 4},
-        {"actividad": "Analizar un final estratégico.", "tiempo_min": 15, "tiempo_max": 20, "puntos": 7},
-        {"actividad": "Resolver 5 ejercicios de táctica en Lichess - Modo Puzzle Streak.", "tiempo_min": 1, "tiempo_max": 3, "puntos": 1},
-        {"actividad": "Estudiar una partida clásica.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
-        {"actividad": "Jugar una partida en Lichess contra el bot de nivel superior al tuyo.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
-    ]
+    def mostrar_mensaje(ev):
+        # Actualiza el contenido del div con un mensaje de prueba
+        document["mision"].text = "¡Brython está funcionando correctamente!"
 
-    # Función para generar una nueva misión
-    def nueva_mision(event):
-        mision = random.choice(misiones)
-        texto = f"<strong>Actividad:</strong> {mision['actividad']}<br>" \
-                f"<strong>Tiempo estimado:</strong> {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>" \
-                f"<strong>Puntos:</strong> {mision['puntos']}"
-        # Actualizar el contenido del div con id "mision"
-        document["mision"].innerHTML = texto
-
-    # Vincular el botón con la función nueva_mision
-    document["nueva-mision"].bind("click", nueva_mision)
+    # Vincular el botón al evento
+    document["nueva-mision"].bind("click", mostrar_mensaje)
     </script>
 </body>
 </html>
-
