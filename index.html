@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Misiones de Ajedrez</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.10.5/brython.min.js"></script>
+    <!-- Usar Brython local -->
+    <script type="text/javascript" src="brython.min.js"></script>
+    <script type="text/javascript" src="random.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,7 +49,7 @@
     <button id="nueva-mision">Nueva Misión</button>
 
     <script type="text/python">
-    from browser import document, console
+    from browser import document
     import random
 
     # Lista de misiones
@@ -65,20 +67,15 @@
 
     # Función para generar una nueva misión
     def nueva_mision(event):
-        console.log("Botón presionado: Generando nueva misión...")  # Mensaje de depuración
         mision = random.choice(misiones)
         texto = f"<strong>Actividad:</strong> {mision['actividad']}<br>" \
                 f"<strong>Tiempo estimado:</strong> {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>" \
                 f"<strong>Puntos:</strong> {mision['puntos']}"
         # Actualiza el contenido del div con la misión generada
         document["mision"].innerHTML = texto
-        console.log("Nueva misión generada y mostrada correctamente.")  # Confirmación de ejecución
 
     # Vincula el botón "Nueva Misión" con la función nueva_mision
-    console.log("Vinculando botón...")  # Mensaje para verificar la vinculación
     document["nueva-mision"].bind("click", nueva_mision)
-    console.log("Botón vinculado correctamente.")
     </script>
 </body>
 </html>
-
