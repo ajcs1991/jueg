@@ -6,10 +6,26 @@
     <title>Juego de Misiones</title>
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #mision {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Juego de Misiones de Ajedrez</h1>
-    <div id="mision"></div>
+    <div id="mision">Haz clic en "Nueva Misión" para comenzar.</div>
     <button id="nueva-mision">Nueva Misión</button>
 
     <py-script>
@@ -28,20 +44,18 @@
         {"actividad": "Jugar una partida en Lichess contra el bot de nivel superior al tuyo.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
     ]
 
-    # Función para generar una nueva misión aleatoria
+    # Función para seleccionar una nueva misión aleatoria
     def nueva_mision():
         mision = random.choice(misiones)
         return f"Actividad: {mision['actividad']}<br>Tiempo estimado: {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>Puntos: {mision['puntos']}"
 
-    # Función para mostrar la misión en la página
+    # Función para actualizar la misión en la página
     def mostrar_mision(*args):
-        from js import document
-        mision = nueva_mision()
-        document.getElementById("mision").innerHTML = mision
+        mission_text = nueva_mision()
+        Element("mision").element.innerHTML = mission_text
 
-    # Conectar el botón a la función mostrar_mision
-    btn = Element("nueva-mision")
-    btn.element.addEventListener("click", mostrar_mision)
+    # Conectar el botón a la función
+    Element("nueva-mision").element.addEventListener("click", mostrar_mision)
     </py-script>
 </body>
 </html>
