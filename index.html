@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Misiones</title>
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <title>Juego de Misiones de Ajedrez</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.10.5/brython.min.js"></script>
     <style>
         /* Estilos generales */
         body {
@@ -46,13 +45,14 @@
         }
     </style>
 </head>
-<body>
+<body onload="brython()">
     <h1>Juego de Misiones de Ajedrez</h1>
     <div id="mision">Haz clic en "Nueva Misión" para comenzar.</div>
     <button id="nueva-mision">Nueva Misión</button>
 
-    <py-script>
+    <script type="text/python">
     import random
+    from browser import document, html
 
     # Lista de misiones completas
     misiones = [
@@ -67,20 +67,16 @@
         {"actividad": "Jugar una partida en Lichess contra el bot de nivel superior al tuyo.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
     ]
 
-    # Función para seleccionar una nueva misión aleatoria
-    def nueva_mision():
+    # Función para generar una nueva misión aleatoria
+    def nueva_mision(ev):
         mision = random.choice(misiones)
-        return f"<strong>Actividad:</strong> {mision['actividad']}<br>" \
-               f"<strong>Tiempo estimado:</strong> {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>" \
-               f"<strong>Puntos:</strong> {mision['puntos']}"
+        texto = f"<strong>Actividad:</strong> {mision['actividad']}<br>" \
+                f"<strong>Tiempo estimado:</strong> {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>" \
+                f"<strong>Puntos:</strong> {mision['puntos']}"
+        document["mision"].html = texto
 
-    # Función para mostrar la misión en la página
-    def mostrar_mision(*args):
-        mission_text = nueva_mision()
-        Element("mision").write(mission_text)
-
-    # Conectar el botón a la función
-    Element("nueva-mision").element.addEventListener("click", mostrar_mision)
-    </py-script>
+    # Conectar el botón con la función
+    document["nueva-mision"].bind("click", nueva_mision)
+    </script>
 </body>
 </html>
