@@ -67,7 +67,7 @@
         {"actividad": "Jugar una partida en Lichess contra el bot de nivel superior al tuyo.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
     ]
 
-    # Función para generar una nueva misión aleatoria
+    # Función para seleccionar una nueva misión aleatoria
     def nueva_mision():
         mision = random.choice(misiones)
         return f"<strong>Actividad:</strong> {mision['actividad']}<br>" \
@@ -77,7 +77,7 @@
     # Función para mostrar la misión en la página
     def mostrar_mision(*args):
         mission_text = nueva_mision()
-        Element("mision").element.innerHTML = mission_text
+        Element("mision").write(mission_text)
 
     # Conectar el botón a la función
     Element("nueva-mision").element.addEventListener("click", mostrar_mision)
