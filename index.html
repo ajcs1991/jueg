@@ -1,53 +1,47 @@
-import random
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Misiones</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+</head>
+<body>
+    <h1>Juego de Misiones de Ajedrez</h1>
+    <div id="mision"></div>
+    <button id="nueva-mision">Nueva Misión</button>
 
-# Lista de actividades con sus tiempos aproximados y puntuaciones
-misiones = [
-    {"actividad": "Jugar una partida a 3 minutos en Lichess y analizarla.", "tiempo_min": 6, "tiempo_max": 10, "puntos": 3},
-    {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Fácil.", "tiempo_min": 1, "tiempo_max": 3, "puntos": 1},
-    {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Medio.", "tiempo_min": 2, "tiempo_max": 3, "puntos": 1},
-    {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Difícil.", "tiempo_min": 2, "tiempo_max": 5, "puntos": 2},
-    {"actividad": "Estudiar finales en Chessable.", "tiempo_min": 10, "tiempo_max": 10, "puntos": 4},
-    {"actividad": "Analizar un final estratégico.", "tiempo_min": 15, "tiempo_max": 20, "puntos": 7},
-    {"actividad": "Resolver 5 ejercicios de táctica en Lichess - Modo Puzzle Streak.", "tiempo_min": 1, "tiempo_max": 3, "puntos": 1},
-    {"actividad": "Estudiar una partida clásica.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
-    {"actividad": "Jugar una partida en Lichess contra el bot de nivel superior al tuyo.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
-]
+    <py-script>
+    import random
 
-def generar_mision():
-    # Seleccionar una misión aleatoriamente
-    mision = random.choice(misiones)
-    return mision
+    # Lista de misiones completas
+    misiones = [
+        {"actividad": "Jugar una partida a 3 minutos en Lichess y analizarla.", "tiempo_min": 6, "tiempo_max": 10, "puntos": 3},
+        {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Fácil.", "tiempo_min": 1, "tiempo_max": 3, "puntos": 1},
+        {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Medio.", "tiempo_min": 2, "tiempo_max": 3, "puntos": 1},
+        {"actividad": "Resolver un ejercicio de táctica en ChessTempo - Nivel Difícil.", "tiempo_min": 2, "tiempo_max": 5, "puntos": 2},
+        {"actividad": "Estudiar finales en Chessable.", "tiempo_min": 10, "tiempo_max": 10, "puntos": 4},
+        {"actividad": "Analizar un final estratégico.", "tiempo_min": 15, "tiempo_max": 20, "puntos": 7},
+        {"actividad": "Resolver 5 ejercicios de táctica en Lichess - Modo Puzzle Streak.", "tiempo_min": 1, "tiempo_max": 3, "puntos": 1},
+        {"actividad": "Estudiar una partida clásica.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
+        {"actividad": "Jugar una partida en Lichess contra el bot de nivel superior al tuyo.", "tiempo_min": 20, "tiempo_max": 40, "puntos": 14},
+    ]
 
-def mostrar_mision(mision):
-    # Mostrar la misión al jugador
-    print("\n¡Nueva misión asignada!")
-    print(f"Actividad: {mision['actividad']}")
-    print(f"Tiempo estimado: {mision['tiempo_min']} - {mision['tiempo_max']} minutos")
-    print(f"Puntos asignados: {mision['puntos']}\n")
+    # Función para generar una nueva misión aleatoria
+    def nueva_mision():
+        mision = random.choice(misiones)
+        return f"Actividad: {mision['actividad']}<br>Tiempo estimado: {mision['tiempo_min']} - {mision['tiempo_max']} minutos<br>Puntos: {mision['puntos']}"
 
-def main():
-    print("¡Bienvenido al juego de misiones de ajedrez!")
-    puntos_totales = 0
-    while True:
-        # Generar y mostrar una misión
-        mision = generar_mision()
-        mostrar_mision(mision)
-        
-        # Preguntar si el jugador quiere completar la misión
-        respuesta = input("¿Quieres completar esta misión? (sí/no): ").strip().lower()
-        if respuesta in ["sí", "si"]:
-            print("¡Misión completada! 🏆")
-            puntos_totales += mision["puntos"]
-            print(f"Puntos totales: {puntos_totales}\n")
-        else:
-            print("Misión saltada. ¡Intenta otra vez!\n")
-        
-        # Preguntar si el jugador quiere continuar
-        continuar = input("¿Quieres otra misión? (sí/no): ").strip().lower()
-        if continuar not in ["sí", "si"]:
-            print(f"¡Gracias por jugar! Puntos finales: {puntos_totales}")
-            break
+    # Función para mostrar la misión en la página
+    def mostrar_mision(*args):
+        from js import document
+        mision = nueva_mision()
+        document.getElementById("mision").innerHTML = mision
 
-# Ejecutar el juego
-if __name__ == "__main__":
-    main()
+    # Conectar el botón a la función mostrar_mision
+    btn = Element("nueva-mision")
+    btn.element.addEventListener("click", mostrar_mision)
+    </py-script>
+</body>
+</html>
